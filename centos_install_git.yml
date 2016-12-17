@@ -1,0 +1,9 @@
+# Simple ansible play book to install git using yum.
+---
+-   hosts: all
+    tasks:
+    -   name: "Intalling git."
+        yum: 
+            name: git
+            state: latest
+...
