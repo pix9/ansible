@@ -1,0 +1,74 @@
+## to add private key for git repo and clone git repo.
+---
+-   hosts:  all
+    tasks:
+    -   name: "Copying ssh privet key to access git repo."
+        copy:
+            src: /home/{USERNAME}/git/ansible/ssh_keys/ansible_git_repo
+            dest: /root/.ssh/ansible_git_repo
+            mode: 0400
+
+    -   name: "adding host entry for git repo."
+        lineinfile:
+            dest: /etc/hosts
+            state: present
+            insertafter: EOF
+            line: "192.168.122.1   {HOSTNAME}"
+
+    -   name: "adding to ssh config file 1"
+        lineinfile:
+            dest: /root/.ssh/config
+            create: yes
+            state: present
+            line: "host 192.168.122.1"
+
+    -   name: "adding to ssh config file 2"
+        lineinfile:
+            dest: /root/.ssh/config
+            state: present
+            insertafter: "host 192.168.122.1"
+            line: " hostname {HOSTNAME}"
+
+    -   name: "adding to ssh config file 3"
+        lineinfile:
+            dest: /root/.ssh/config
+            state: present
+            insertafter: " hostname {HOSTNAME}"
+            line: " user {USERNAME}"
+
+    -   name: "adding to ssh config file 4"
+        lineinfile:
+            dest: /root/.ssh/config
+            state: present
+            insertafter: " user {USERNAME}"
+            line: " PreferredAuthentications publickey"
+
+    -   name: "adding to ssh config file 5"
+        lineinfile:
+            dest: /root/.ssh/config
+            state: present
+            insertafter: " PreferredAuthentications publickey"
+            line: " IdentityFile ~/.ssh/ansible_git_repo"
+
+    -   name: "adding to ssh config file 6"
+        lineinfile:
+            dest: /root/.ssh/config
+            state: present
+            insertafter:  " IdentityFile ~/.ssh/ansible_git_repo"
+            line: " StrictHostKeyChecking no"
+
+    -   name: "adding to ssh config file 6"
+        lineinfile:
+            dest: /root/.ssh/config
+            state: present
+            insertafter: " StrictHostKeyChecking no"
+            line: " UserKnownHostsFile=/dev/null"
+
+    -   name: "cloning Git Repo."
+        git:
+            repo: ssh://192.168.122.1:22/home/{USERNAME}/git/test
+            dest: /root/test_repo
+            clone: yes
+            accept_hostkey: yes
+            key_file: /root/.ssh/ansible_git_repo
+
