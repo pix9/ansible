@@ -1,0 +1,12 @@
+# playbook to enable prompt less ssh login using password.
+# Note: - Using sshpass is not best way of getting things done. It's recomended never use this in production enviroments or any other critical project.
+---
+-   hosts: VM-196
+    tasks:
+    -   name: "Install sshpass"
+        become: true
+        become_method: sudo
+        yum :
+            name: sshpass
+            state: latest
+...
