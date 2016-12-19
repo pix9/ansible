@@ -13,20 +13,21 @@
             dest: /etc/hosts
             state: present
             insertafter: EOF
-            line: "192.168.122.1   {HOSTNAME}"
+            line: "{GIT_SRV_IP}   {HOSTNAME}"
 
+# Adding ssh config specific to git access.
     -   name: "adding to ssh config file 1"
         lineinfile:
             dest: /root/.ssh/config
             create: yes
             state: present
-            line: "host 192.168.122.1"
+            line: "host {GIT_SRV_IP}"
 
     -   name: "adding to ssh config file 2"
         lineinfile:
             dest: /root/.ssh/config
             state: present
-            insertafter: "host 192.168.122.1"
+            insertafter: "host {GIT_SRV_IP}"
             line: " hostname {HOSTNAME}"
 
     -   name: "adding to ssh config file 3"
@@ -57,7 +58,7 @@
             insertafter:  " IdentityFile ~/.ssh/ansible_git_repo"
             line: " StrictHostKeyChecking no"
 
-    -   name: "adding to ssh config file 6"
+    -   name: "adding to ssh config file 7"
         lineinfile:
             dest: /root/.ssh/config
             state: present
@@ -66,9 +67,9 @@
 
     -   name: "cloning Git Repo."
         git:
-            repo: ssh://192.168.122.1:22/home/{USERNAME}/git/test
+            repo: ssh://{GIT_SRV_IP}:22/home/{USERNAME}/git/test
             dest: /root/test_repo
             clone: yes
             accept_hostkey: yes
             key_file: /root/.ssh/ansible_git_repo
-
+...
