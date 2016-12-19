@@ -13,9 +13,4 @@
             dest: /etc/yum.repos.d/CentOS-Base.repo
             regexp: '^#baseurl='
             replace: 'baseurl='
-    -   name: "Installing Git."
-        yum:
-            #update_cache: yes
-            disablerepo: DVD
-            name: git
-            state: latest
+...

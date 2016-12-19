@@ -5,5 +5,5 @@
     -   name: "Intalling git."
         yum: 
             name: git
-            state: latest
+            state: present
 ...
