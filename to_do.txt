@@ -1,0 +1,12 @@
+1) pull latest config files from git repo :- done
+2) deploy /etc/nginx/ from git repo.
+2.1) update the config file with appropriate system IP's
+3) deploy /etc/sysctl.conf
+4) update /etc/hosts
+5) deploy /scripts
+6) deploy /var/spool/cron
+6.1) patch /var/spool/cron with city specific. crons.
+7) deploy /etc/rc.local
+8) deploy /var/www/production
+9) deploy daemons /home/{USER}
+
