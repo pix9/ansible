@@ -1,0 +1,21 @@
+## Playbook to un-comment the baseurl line in Centos Base repo file and comment mirrorlist.
+#This will disable the DVD repo if configured and  disable mirrorlist  and switch to baseurl in  Base repo files.
+---
+-   hosts: all
+    tasks:
+    -   name: "Fixing yum-repo file for centos. 1"
+        replace:
+            dest: /etc/yum.repos.d/CentOS-Base.repo
+            regexp: '^mirrorlist='
+            replace: '#mirrorlist='
+    -   name: "Fixing yum-repo file for cento. 2"
+        replace:
+            dest: /etc/yum.repos.d/CentOS-Base.repo
+            regexp: '^#baseurl='
+            replace: 'baseurl='
+    -   name: "Installing Git."
+        yum:
+            #update_cache: yes
+            disablerepo: DVD
+            name: git
+            state: latest
