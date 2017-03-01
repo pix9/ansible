@@ -1,0 +1,36 @@
+# Name :- pix
+# Ansible Version : 2.2
+# Date :- 02 March 2017
+# Purpose :- To stop and disable service on init-V and systemd based systems  ideal for Centos 6.x / Centos 7.x
+# Note :- 
+# Playbook has been written as generic and reqiures necessary changes like name of services, paths etc. as per demands.
+# Ideally the services names will appear in <> brackets and path to files would appear in following fashion "/path/to/file"
+#
+---
+-   hosts: all
+    tasks:
+    -   name: "Stopping <FOO> Service - service"
+        become: true
+        become_method: sudo
+        service: name=<FOO> state=stopped
+        when:
+        -   ansible_service_mgr == "upstart"
+    -   name: "Disabping <FOO> Service - service"
+        become: true
+        become_method: sudo
+        service: name=<FOO> enabled=no
+        when:
+        -   ansible_service_mgr == "upstart"
+    -   name: "Stopping <FOO> Service - systemd"
+        become: true
+        become_method: sudo
+        systemd: name=<FOO> state=stopped
+        when:
+        -   ansible_service_mgr == "systemd"
+    -   name: "Disabping <FOO> Service - systemd"
+        become: true
+        become_method: sudo
+        systemd: name=<FOO> enabled=no
+        when:
+        -   ansible_service_mgr == "systemd"
+...
