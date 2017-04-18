@@ -1,0 +1,7 @@
+---
+-   name: "Creating config per user for multiple projects"
+    template: src={{ item.1.conf }}.j2 dest=/tmp/testing/{{ item.2.name }}.{{ item.0.proj }}.conf
+    with_nested:
+    -   "{{ projects }}"
+    -   "{{ config }}"
+    -   "{{ users }}"

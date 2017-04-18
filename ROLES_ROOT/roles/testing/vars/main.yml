@@ -1,0 +1,13 @@
+---
+projects:
+-   proj: project01
+-   proj: project02
+-   proj: project03
+
+config:
+-   conf: vhost
+
+users:
+-   name: abc
+-   name: pqr
+-   name: zyx

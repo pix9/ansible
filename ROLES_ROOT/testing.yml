@@ -1,0 +1,7 @@
+---
+-   name: "Apply blrsoft role."
+    gather_facts: no
+    hosts: localhost
+
+    roles:
+    -   testing
